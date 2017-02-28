@@ -60,19 +60,33 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Admin <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i>Manage Stock <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="addAdmin.php">Add Admin</a></li>
-                      <li><a href="adminDetails.php">Admin Details</a></li>
+                      <li><a href="addAdmin.php">Add Item</a></li>
+                      <li><a href="adminDetails.php">Item Details</a></li>
+                      <li><a href="adminDetails.php">Remove Item</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Employee <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i>Manage Suppliers<span class="fa fa-chevron-down"></span></a>
+                     <ul class="nav child_menu">
+                      <li><a href="addEmp.php">Add Supplier</a></li>
+                      <li><a href="empDetails.php">Suppliers Details</a></li>
+                      <li><a href="adminDetails.php">Remove Supplier</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>Manage User Accounts<span class="fa fa-chevron-down"></span></a>
+                     <ul class="nav child_menu">
+                      <li><a href="addEmp.php">Add User</a></li>
+                      <li><a href="empDetails.php">User Details</a></li>
+                      <li><a href="adminDetails.php">Remove User</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>Manage Employee<span class="fa fa-chevron-down"></span></a>
                      <ul class="nav child_menu">
                       <li><a href="addEmp.php">Add Employee</a></li>
                       <li><a href="empDetails.php">Employee Details</a></li>
+                      <li><a href="adminDetails.php">Remove Employee</a></li>
                     </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i>Theater <span class="fa fa-chevron-down"></span></a>
                   </li>
                 </ul>
               </div>
@@ -156,7 +170,7 @@
                 <div class="x_panel">
                   <div class="x_content">
                     <?php
-                        require_once 'connectionF.php';
+                        require_once 'connection.php';
                            //display reservations details in a table//
                            // Select all data , display them in a table//
                            $select = "SELECT * FROM employee";
