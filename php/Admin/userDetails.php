@@ -10,22 +10,22 @@
     <title>DataTables | Gentellela</title>
 
     <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="../../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- Datatables -->
-    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../../build/css/custom.min.css" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -170,35 +170,33 @@
                 <div class="x_panel">
                   <div class="x_content">
                     <?php
-                        require_once 'connection.php';
+                        require_once '../connection.php';
                            //display reservations details in a table//
                            // Select all data , display them in a table//
-                           $select = "SELECT * FROM employee";
+                           $select = "SELECT * FROM users";
                            $result = mysqli_query($conn, $select);
                           if ( mysqli_num_rows($result) > 0) {
                             // print table heads//
                                 echo ('<div class="table-responsive"><table border=1 class="table table-bordered" >
                                     <thead style="background-color:     #D3D3D3;">
                                     <tr>
-                                        <th>EmpNo</th>
-                                        <th>Name</th>
-                                        <th>NIC</th>
-                                        <th>Address</th>
-                                        <th>Telephone</th>
-                                         <th></th>
+                                        <th>User ID</th>
+                                        <th>Username</th>
+                                        <th>User Type</th>
+                                        <th></th>
                                     </tr></thead>');
                                     echo("<tbody>");
                                     // output data from row by row
-                                    while($row = mysqli_fetch_assoc($result)) {
+                                    while($row = mysqli_fetch_array($result)) {
                                         echo (
                                         "<tr>
                                             <form method='POST'>
-                                                <td>" . $row["Emp_No"] . "</td>
-                                                <td>" . $row["Name"] . "</td>
-                                                <td>" . $row["NIC"] . "</td>
-                                                <td>" . $row["Address"] . "</td>
-                                                <td>" . $row["Telephone"] . "</td>
-                                                <td><a href=\"removeEmpF.php?id={$row['Emp_No']}\" style='color:blue'>Remove</a></td>
+                                                <td>" . $row[0] . "</td>
+                                                <td>" . $row[1] . "</td>
+                                                <td>" . $row[3] . "</td>
+                                                <td>
+                                                  <a href='#' id='$row[0]' class='deleteuser'><button value=''>delete</button></a>
+                                                </td>
                                            </form>
                                         </tr>");
                                     }
@@ -225,115 +223,76 @@
     </div>
 
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="../../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="../../vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- Datatables -->
-    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
-    <script src="../vendors/jszip/dist/jszip.min.js"></script>
-    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-
+    <script src="../../vendors/iCheck/icheck.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
-    <!-- Datatables -->
-    <script>
-      $(document).ready(function() {
-        var handleDataTableButtons = function() {
-          if ($("#datatable-buttons").length) {
-            $("#datatable-buttons").DataTable({
-              dom: "Bfrtip",
-              buttons: [
-                {
-                  extend: "copy",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "csv",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "excel",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "pdfHtml5",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "print",
-                  className: "btn-sm"
-                },
-              ],
-              responsive: true
-            });
-          }
-        };
-
-        TableManageButtons = function() {
-          "use strict";
-          return {
-            init: function() {
-              handleDataTableButtons();
-            }
-          };
-        }();
-
-        $('#datatable').dataTable();
-
-        $('#datatable-keytable').DataTable({
-          keys: true
-        });
-
-        $('#datatable-responsive').DataTable();
-
-        $('#datatable-scroller').DataTable({
-          ajax: "js/datatables/json/scroller-demo.json",
-          deferRender: true,
-          scrollY: 380,
-          scrollCollapse: true,
-          scroller: true
-        });
-
-        $('#datatable-fixed-header').DataTable({
-          fixedHeader: true
-        });
-
-        var $datatable = $('#datatable-checkbox');
-
-        $datatable.dataTable({
-          'order': [[ 1, 'asc' ]],
-          'columnDefs': [
-            { orderable: false, targets: [0] }
-          ]
-        });
-        $datatable.on('draw.dt', function() {
-          $('input').iCheck({
-            checkboxClass: 'icheckbox_flat-green'
-          });
-        });
-
-        TableManageButtons.init();
-      });
-    </script>
-    <!-- /Datatables -->
   </body>
 </html>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a.deleteuser').click(function(e){
+      e.preventDefault();
+    })
+
+
+    $('a.deleteuser').click(function(){
+     var userid = this.id;
+
+     swal({
+      title: 'Confirm deletion of Employee?',
+      text: "Employee will be deleted permanently!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false
+}).then(function () {
+
+       $.ajax({
+        type:"get",
+        url:"removeEmpf.php?id="+userid,
+        success:function(data){
+
+           swal(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+
+           $('div#ajaxreq').html("");
+           $('div#ajaxreq').html(data);
+          
+        }
+
+      })
+ 
+}, function (dismiss) {
+ 
+  if (dismiss === 'cancel') {
+    swal(
+      'Cancelled',
+      'Action denied',
+      'error'
+    )
+  }
+})
+    })
+  })
+
+
+</script>
+

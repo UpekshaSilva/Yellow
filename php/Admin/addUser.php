@@ -1,22 +1,21 @@
 <?php
-require_once 'connectionF.php';
+   
+   include_once '../connection.php';
+   
+    $row_cnt=0;
+    if ($result = mysqli_query($conn, "SELECT userID FROM users ORDER BY userID")) {
 
-  $empNo=$_POST['empNo'];
-  $name = $_POST['name'];
-  $nic = $_POST['nic'];
-  $address = $_POST['address'];
-  $phone = $_POST['phone'];
+    /* determine number of rows result set */
+    $row_cnt = mysqli_num_rows($result);
 
-  $sql="INSERT INTO employee VALUES ('$empNo','$name','$nic','$address','$phone');";
-  $result = mysqli_query($conn, $sql);
-
-    if ($result){
-        echo "<script type='text/javascript'>alert('successfully Added!')</script>";
-    }else{
-        echo "<script type='text/javascript'>alert('failed!')</script>";
+    /* close result set */
+    mysqli_free_result($result);
     }
-?>
+    $row_cnt=$row_cnt+1
 
+
+
+   ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,17 +25,49 @@ require_once 'connectionF.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Excel Cienema! | </title>
+  <title>Employee | Yellow Enterprise</title>
 
     <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="../../vendors/nprogress/nprogress.css" rel="stylesheet">
     
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../../build/css/custom.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript"><!--
+        function checkPass()
+        {
+            //Store the password field objects into variables ...
+            var pass1 = document.getElementById('password');
+            var pass2 = document.getElementById('rpassword');
+            //Store the Confimation Message Object ...
+            var message = document.getElementById('confirmMessage');
+            //Set the colors we will be using ...
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+            //Compare the values in the password field 
+            //and the confirmation field
+            if(pass1.value == pass2.value){
+                //The passwords match. 
+                //Set the color to the good color and inform
+                //the user that they have entered the correct password 
+                pass2.style.backgroundColor = goodColor;
+                message.style.color = goodColor;
+                message.innerHTML = "Passwords Match!"
+            }else{
+                //The passwords do not match.
+                //Set the color to the bad color and
+                //notify the user.
+                pass2.style.backgroundColor = badColor;
+                message.style.color = badColor;
+                message.innerHTML = "Passwords Do Not Match!"
+            }
+        }  
+    //--></script>
   </head>
 
   <body class="nav-md">
@@ -56,7 +87,7 @@ require_once 'connectionF.php';
                 <img src="images/user.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
+               <span>Welcome,</span>
                 <h2>Upeksha Silva</h2>
               </div>
             </div>
@@ -69,21 +100,24 @@ require_once 'connectionF.php';
               <div class="menu_section">
                 <h3>Admin</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> Home</a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Admin <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i>Manage Stock <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="addAdmin.php">Add Admin</a></li>
-                      <li><a href="adminDetails.php">Admin Details</a></li>
+                      <li><a href="../Item/itemDetails.php">Add Item</a></li>
+                      <li><a href="../Item/addItem.php">Item Details</a></li>
+                      <li><a href="../Item/removeItem.php">Remove Item</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Employee <span class="fa fa-chevron-down"></span></a>
-                     <ul class="nav child_menu">
-                      <li><a href="addEmp.php">Add Employee</a></li>
-                      <li><a href="empDetails.php">Employee Details</a></li>
+                  <li><a href="../Supplier/supplier.php"><i class="fa fa-home"></i>Manage Suppliers</a>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>User Accouts <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Admin/userDetails.php">User Details</a></li>
+                      <li><a href="../Admin/addUser.php">Add User</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Theater <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="../Employee/emp.php"><i class="fa fa-edit"></i>Manage Employees</a>
                   </li>
                 </ul>
               </div>
@@ -120,7 +154,7 @@ require_once 'connectionF.php';
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="javascript:;"> Profile</a></li>
                     <li>
                       <a href="javascript:;">
@@ -143,7 +177,7 @@ require_once 'connectionF.php';
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Add Employee</h3>
+                <h3>Add Admin</h3>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -156,41 +190,45 @@ require_once 'connectionF.php';
                   </div>
                   <div class="x_content">
 
-                    <form action="addEmpF.php" method="POST" class="form-horizontal form-label-left" novalidate>
+                    <form onsubmit="return confirm('Do you really want to add this Admin?');" action="adduserF.php" method="POST" class="form-horizontal form-label-left" novalidate>
                       <span class="section">Personal Info</span>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="empN0">Emp No <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="uid">User ID <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="empNo" class="form-control col-md-7 col-xs-12" name="empNo" required="required" type="text">
+                          <input id="uid" class="form-control col-md-7 col-xs-12" name="uid" required="required" readonly="readonly" type="text" <?php echo "value='".$row_cnt."'>";?>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Userame <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="name" name="name" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                          <input id="username" name="username" class="form-control col-md-7 col-xs-12" required="required" type="text">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nic">NIC <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Password <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="nic" name="nic" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  required="required" type="text">
+                          <input id="password" name="password" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  required="required"type="password">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rpassword">Re-Enter Password <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="phone" id="phone" name="phone" required="required" data-validate-length-range="10,12" class="form-control col-md-7 col-xs-12">
+                          <input id="rpassword" name="rpassword" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  required="required" type="password" onkeyup="checkPass(); return false;">
+                          <span id="confirmMessage" class="confirmMessage"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Address <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">User Type<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="address" id="address" name="address" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                          <select name="type" class="form-control" id="type" required>
+                            <option value="Admin" >Admin</option>
+                            <option value="Clerk">Clerk</option>
+                          </select>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -220,18 +258,18 @@ require_once 'connectionF.php';
     </div>
 
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="../../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="../../vendors/nprogress/nprogress.js"></script>
     <!-- validator -->
-    <script src="../vendors/validator/validator.js"></script>
+    <script src="../../vendors/validator/validator.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="../../build/js/custom.min.js"></script>
 
     <!-- validator -->
     <script>

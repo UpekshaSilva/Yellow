@@ -30,7 +30,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form action="loginF.php">
+            <form action="loginF.php" class="form-horizontal" method="post">
               <h1>Login Form</h1>
               <div>
                 <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="" />
@@ -39,7 +39,7 @@
                 <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="" />
               </div>
               <div>
-                <button id="send" type="submit" class="btn btn-success">Add</button>
+                <button id="send" type="submit" class="btn btn-success">Login</button>
                 <!--<a class="btn btn-default submit" href="loginF.php">Log in</a>
                 <a class="reset_pass" href="#">Lost your password?</a>-->
               </div>

@@ -1,26 +1,52 @@
 <?php
-  include 'connection.php';
-  session_start();
 
-  $message="";
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-  if(count($_POST)>0) {
-    //$conn = mysql_connect("localhost","root","");
-    //mysql_select_db("yellow",$conn);
-    $select = mysql_query("SELECT * FROM users WHERE username='" . $_POST["username"] . "' and password = '". $_POST["password"]."'");
-    $result = mysqli_query($conn, $select);
 
-    //$row  = mysql_fetch_array($result);
-    if (mysqli_num_rows($result) > 0) {
-      $_SESSION["username"] = $row[username];
-      $_SESSION["password"] = $row[password];
-      header("Location:index.php");
-    } else {
-      $message = "Invalid Username or Password!";
+session_start();
+
+// establishing the MySQLi connection
+
+
+require_once 'connection.php';
+
+
+// checking the user
+
+if (isset($_POST['login'])) {
+
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    $query="SELECT * FROM users WHERE username='$username' AND password='$password'";
+    $result=mysql_query($query);
+    $count=mysql_num_rows($result);
+    $row=mysql_fetch_array($result);
+    if (isset($_POST['login'])){
+      if ($count==1){
+        session_start();
+        $session("username");
+        $session("password") ;
+
+        if ($row['type']=='admin'){
+          header("location:index.php");
+          //echo ("you logged in as admin");
+        }
+        elseif ($row['type']=='clerk') {
+          header("location:Employee/emp.php");
+          //echo ("you logged in as cashier");
+        }
+      }
+      else {
+
+        echo "<script>alert('Email or password is not correct, try again!')</script>";
+        echo "<script>window.open('index.php#login','_self')</script>";
+      }
     }
-  }
-
-  //if(isset($_SESSION["username"])) {
-  //header("Location:addEmp.php");
-  //}
+}
 ?>
