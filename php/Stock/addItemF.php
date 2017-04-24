@@ -1,6 +1,7 @@
 <?php
 require_once '../connection.php';
 
+
   $itemNo=$_POST['itemNo'];
   $name = $_POST['name'];
   $supname = $_POST['supname'];

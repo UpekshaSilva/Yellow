@@ -1,6 +1,31 @@
 <?php
+require_once '../connection.php';
+
 session_start();
+
+  $search=$_POST['search'];
+  $empNo='';
+  $name = '';
+  $tele_no = '';
+  $address = '';
+  $NIC = '';
+  $sql="SELECT emp_no,name,tele_no,address,NIC FROM employee WHERE emp_no='$search' OR name='$search' OR tele_no='$search' OR NIC='$search'; ";
+  $result = mysqli_query($conn, $sql);
+  echo mysqli_num_rows($result);
+  if (mysqli_num_rows($result) > 0) {
+  // output data of each row
+        $row = mysqli_fetch_assoc($result);
+        $empNo=$row["emp_no"];
+        $name = $row["name"];
+        $tele_no = $row["tele_no"];
+        $address = $row["address"];
+        $NIC = $row["NIC"];
+  }else{
+    echo "<script type='text/javascript'>alert('No such Employee!')</script>";
+    header("location:emp.php");
+  }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,8 +34,8 @@ session_start();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
-    <title>Item | Yellow Enterprise</title>
+    
+    <title>Employee | Yellow Enterprise</title>
 
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -53,7 +78,7 @@ session_start();
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>Upeksha</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -61,34 +86,15 @@ session_start();
             <br />
 
             <!-- sidebar menu -->
-           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Admin</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home</a>
+                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Stock<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="../Item/addItem.php">Add New Item</a></li>
-                      <li><a href="../Item/addItem.php">Item Details</a></li>
-                      <li><a href="../Item/removeItem.php">Manage Stock</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="../Supplier/supplier.php"><i class="fa fa-home"></i>Manage Suppliers</a>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i>Admin Accouts <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="../Admin/addUser.php">Add Admin</a></li>
-                      <li><a href="../Admin/userDetails.php">Manage Admin</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i>Employee <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="../Employee/addEmp.php">Add Employee</a></li>
-                      <li><a href="../Employee/empDetails.php">Manage Admin</a></li>
-                      
-                    </ul>
-                  </li>
+                  <li><a href="viewStock.php"><i class="fa fa-edit"></i>View Stock</a></li>
+                  <li><a href="empDetails.php"><i class="fa fa-edit"></i>View Employees</a></li>
+                  <li><a href="supDetails.php"><i class="fa fa-edit"></i>View Suppliers</a></li>
                 </ul>
               </div>
 
@@ -100,7 +106,13 @@ session_start();
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
-             <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -129,14 +141,14 @@ session_start();
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Add Supplier</Emplo>
+                <h3>Modify Employee Details</Emplo>
               </div>
 
-              <form action="modifySup.php" method="POST" class="form-horizontal form-label-left" novalidate>
+              <form action="modifyEmp.php" method="POST" class="form-horizontal form-label-left" novalidate>
                   <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                       <div class="input-group">
-                        <input id="supNo" name="supNo" type="text" class="form-control" placeholder="Eg:- S001">
+                        <input id="empNo" name="empNo" type="text" class="form-control" placeholder="Eg:- E001">
                         <span class="input-group-btn">
                           <button id="search" name="search" type="submit" class="btn btn-default" value="search">Search</button>
                         </span>
@@ -149,74 +161,84 @@ session_start();
               <div class="col-md-6 col-xs-6">
                 <div class="x_panel">
                   <div>
-                    <h2>Supplier Info</h2>
+                    <h2>Personal Info</h2>
                     <div class="x_content" id="ajaxreq">
-                    <form onsubmit="return confirm('Do you really want to add this Supplier?');" action="addSupplierF.php" method="POST" class="form-horizontal form-label-left" novalidate>
+                    <form action="modifyEmpF.php" method="POST" class="form-horizontal form-label-left" novalidate>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="empNo">Supplier No <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="empNo">Emp No<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="supNo" name="supNo" class="form-control col-md-7 col-xs-12" required="required" placeholder="Eg:- S001" type="text">
+                          <input id="empNo" name="empNo" class="form-control col-md-7 col-xs-12" data-validate-length-range="10" readonly="readonly" type="text" <?php echo "value='".$empNo."'>";?>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Supplier Name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="name" name="name" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                          <input id="name" name="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="10" readonly="readonly"  type="text" <?php echo "value='".$name."'>";?>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Address <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Telephone <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="address" name="address" class="form-control col-md-7 col-xs-12" data-validate-length-range="10,100"  required="required" type="textArea">
+                          <input id="tele" name="tel" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  type="text" <?php echo "value='".$tele_no."'>";?>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Telephone <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Address <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="phone" name="phone" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  required="required" type="text">
+                          <input type="address" id="address" name="address" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12" <?php echo "value='".$address."'>";?>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">NIC <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="nic" name="nic" required="required" data-validate-length-range="8" class="form-control col-md-7 col-xs-12" readonly="readonly" <?php echo "value='".$NIC."'>";?>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                          <button id="send" type="submit" class="btn btn-success">Add</button>
+                          <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                       </div>
                     </form>
                       </div>
                   </div>
-                
+                  
                 </div>
+
+                
               </div>
 
               <div class="col-md-6 col-xs-12">
            
+              
               <div class="clearfix"></div>
               <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_content" id="ajaxreq">
-                    <h2>Supplier Details</h2>
+                    <h2>Employee Details</h2>
                     <?php
                         require_once '../connection.php';
                            //display reservations details in a table//
                            // Select all data , display them in a table//
-                           $select = "SELECT * FROM suppliers";
+                           $select = "SELECT * FROM employee";
                            $result = mysqli_query($conn, $select);
                           if ( mysqli_num_rows($result) > 0) {
                             // print table heads//
                                 echo ('<div class="table-responsive"><table border=1 class="table table-bordered" >
                                     <thead style="background-color:     #D3D3D3;">
                                     <tr>
-                                        <th>SupNo</th>
-                                        <th>Supplier Name</th>
-                                        <th>Address</th>
+                                        <th>EmpNo</th>
+                                        <th>Name</th>
                                         <th>Telephone</th>
-                                    <th></th>
+                                        <th>Address</th>
+                                        <th>NIC</th>
                                     </tr></thead>');
                                     echo("<tbody>");
                                     // output data from row by row
@@ -228,10 +250,7 @@ session_start();
                                                 <td>" . $row[1] . "</td>
                                                 <td>" . $row[2] . "</td>
                                                 <td>" . $row[3] . "</td>
-                                                <td>
-                                                
-                                                <a href='#' id='$row[0]' class='deleteuser'><button value=''>delete</button></a>
-                                                </td>
+                                                <td>" . $row[4] . "</td>
                                            </form>
                                         </tr>");
                                     }

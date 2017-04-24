@@ -11,10 +11,9 @@ require_once '../connection.php';
 
   if ($result){
         echo "<script type='text/javascript'>alert('successfully Updated!')</script>";
-        header("location:emp.php");
+        header("location:empDetails.php");
     }else{
         echo "<script type='text/javascript'>alert('failed!')</script>";
-        header("location:emp.php");
     }
 ?>
 

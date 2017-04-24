@@ -28,7 +28,7 @@ require_once '../connectionF.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Excel Cienema! | </title>
+    <title>User | Yellow Enterprise</title>
 
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@ require_once '../connectionF.php';
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Excel Cienema!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-shopping-cart"></i> <span>Yellow Enterprise!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -59,7 +59,7 @@ require_once '../connectionF.php';
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>Upeksha Silva</h2>
+                <h2><?php echo $_SESSION["username"]; ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -71,21 +71,29 @@ require_once '../connectionF.php';
               <div class="menu_section">
                 <h3>Admin</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> Home</a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Admin <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i>Stock<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="addAdmin.php">Add Admin</a></li>
-                      <li><a href="adminDetails.php">Admin Details</a></li>
+                      <li><a href="../Item/addItem.php">Add New Item</a></li>
+                      <li><a href="../Item/addItem.php">Item Details</a></li>
+                      <li><a href="../Item/removeItem.php">Manage Stock</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="../Supplier/supplier.php"><i class="fa fa-home"></i>Manage Suppliers</a>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>Admin Accouts <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Admin/addUser.php">Add Admin</a></li>
+                      <li><a href="../Admin/userDetails.php">Manage Admin</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i>Employee <span class="fa fa-chevron-down"></span></a>
-                     <ul class="nav child_menu">
-                      <li><a href="addEmp.php">Add Employee</a></li>
-                      <li><a href="empDetails.php">Employee Details</a></li>
+                    <ul class="nav child_menu">
+                      <li><a href="../Employee/addEmp.php">Add Employee</a></li>
+                      <li><a href="../Employee/empDetails.php">Manage Admin</a></li>
+                      
                     </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i>Theater <span class="fa fa-chevron-down"></span></a>
                   </li>
                 </ul>
               </div>
@@ -97,12 +105,6 @@ require_once '../connectionF.php';
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
@@ -181,7 +183,7 @@ require_once '../connectionF.php';
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            All Right recived by Yellow Enterprise
           </div>
           <div class="clearfix"></div>
         </footer>

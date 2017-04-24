@@ -29,6 +29,9 @@ session_start();
 
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="../js/jquery3.min.js"></script>
+    <script type="text/javascript" src="../js/sweetalert2.js"></script>
   </head>
 
   <body class="nav-md">
@@ -61,11 +64,30 @@ session_start();
               <div class="menu_section">
                 <h3>Admin</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> Home</a>
                   </li>
-                  <li><a href="viewStock.php"><i class="fa fa-edit"></i>View Stock</a></li>
-                  <li><a href="empDetails.php"><i class="fa fa-edit"></i>View Employees</a></li>
-                  <li><a href="supDetails.php"><i class="fa fa-edit"></i>View Suppliers</a></li>
+                  <li><a><i class="fa fa-edit"></i>Stock<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Item/addItem.php">Add New Item</a></li>
+                      <li><a href="../Item/addItem.php">Item Details</a></li>
+                      <li><a href="../Item/removeItem.php">Manage Stock</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="../Supplier/supplier.php"><i class="fa fa-home"></i>Manage Suppliers</a>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>Admin Accouts <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Admin/addUser.php">Add Admin</a></li>
+                      <li><a href="../Admin/userDetails.php">Manage Admin</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>Employee <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Employee/addEmp.php">Add Employee</a></li>
+                      <li><a href="../Employee/empDetails.php">Manage Admin</a></li>
+                      
+                    </ul>
+                  </li>
                 </ul>
               </div>
 
@@ -76,12 +98,6 @@ session_start();
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
@@ -124,16 +140,16 @@ session_start();
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Stock Details</h3>
+                <h3>Employee Details</h3>
               </div>
 
               <form action="modifyEmp.php" method="POST" class="form-horizontal form-label-left" novalidate>
                   <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                       <div class="input-group">
-                        <input id="empNo" name="empNo" type="text" class="form-control" placeholder="Emp No">
+                        <input id="empNo" name="empNo" type="text" class="form-control" placeholder="dfgdh">
                         <span class="input-group-btn">
-                          <button id="search" name="search" type="submit" class="btn btn-default" value="search">Search</button>
+                          <button id="empNo" name="empNo" type="submit" class="btn btn-default" value="search">Search</button>
                         </span>
                       </div>
                     </div>
@@ -160,21 +176,25 @@ session_start();
                                     <tr>
                                         <th>EmpNo</th>
                                         <th>Name</th>
-                                        <th>NIC</th>
                                         <th>Telephone</th>
                                         <th>Address</th>
+                                        <th>NIC</th>
+                                        <th></th>
                                     </tr></thead>');
                                     echo("<tbody>");
                                     // output data from row by row
-                                    while($row = mysqli_fetch_assoc($result)) {
+                                    while($row = mysqli_fetch_array($result)) {
                                         echo (
                                         "<tr>
                                             <form method='POST'>
-                                                <td>" . $row["emp_no"] . "</td>
-                                                <td>" . $row["name"] . "</td>
-                                                <td>" . $row["NIC"] . "</td>
-                                                <td>" . $row["tele_no"] . "</td>
-                                                <td>" . $row["address"] . "</td>
+                                                <td>" . $row[0] . "</td>
+                                                <td>" . $row[1] . "</td>
+                                                <td>" . $row[2] . "</td>
+                                                <td>" . $row[3] . "</td>
+                                                <td>" . $row[4] . "</td>
+                                                <td>
+                                              <a href='#' id='$row[0]' class='deleteuser'><button value=''>delete</button></a>
+                                            </td>
                                            </form>
                                         </tr>");
                                     }
@@ -213,6 +233,64 @@ session_start();
    
     <!-- Custom Theme Scripts -->
     <script src="../../build/js/custom.min.js"></script>
+
+    <script type="text/javascript">
+  $(document).ready(function() {
+    $('a.deleteuser').click(function(e){
+      e.preventDefault();
+    })
+
+
+    $('a.deleteuser').click(function(){
+     var userid = this.id;
+
+     swal({
+      title: 'Confirm deletion of account?',
+      text: "Account will be deleted permanently!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false
+}).then(function () {
+
+       $.ajax({
+        type:"get",
+        url:"removeEmpF.php?id="+userid,
+        success:function(data){
+
+           swal(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+
+           $('div#ajaxreq').html("");
+           $('div#ajaxreq').html(data);
+          
+        }
+
+      })
+ 
+}, function (dismiss) {
+ 
+  if (dismiss === 'cancel') {
+    swal(
+      'Cancelled',
+      'Your imaginary file is safe :)',
+      'error'
+    )
+  }
+})
+    })
+  })
+
+
+</script>
 
     <!-- Datatables -->
     

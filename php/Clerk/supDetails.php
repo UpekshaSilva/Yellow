@@ -131,7 +131,7 @@ session_start();
                   <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                       <div class="input-group">
-                        <input id="empNo" name="empNo" type="text" class="form-control" placeholder="Emp No">
+                        <input id="empNo" name="empNo" type="text" class="form-control" placeholder="search">
                         <span class="input-group-btn">
                           <button id="search" name="search" type="submit" class="btn btn-default" value="search">Search</button>
                         </span>
@@ -151,30 +151,28 @@ session_start();
                         require_once '../connection.php';
                            //display reservations details in a table//
                            // Select all data , display them in a table//
-                           $select = "SELECT * FROM employee";
+                           $select = "SELECT * FROM suppliers";
                            $result = mysqli_query($conn, $select);
                           if ( mysqli_num_rows($result) > 0) {
                             // print table heads//
                                 echo ('<div class="table-responsive"><table border=1 class="table table-bordered" >
                                     <thead style="background-color:     #D3D3D3;">
                                     <tr>
-                                        <th>EmpNo</th>
-                                        <th>Name</th>
-                                        <th>NIC</th>
-                                        <th>Telephone</th>
+                                        <th>SupNo</th>
+                                        <th>Supplier Name</th>
                                         <th>Address</th>
+                                        <th>Telephone</th>
                                     </tr></thead>');
                                     echo("<tbody>");
                                     // output data from row by row
-                                    while($row = mysqli_fetch_assoc($result)) {
+                                    while($row = mysqli_fetch_array($result)) {
                                         echo (
                                         "<tr>
                                             <form method='POST'>
-                                                <td>" . $row["emp_no"] . "</td>
-                                                <td>" . $row["name"] . "</td>
-                                                <td>" . $row["NIC"] . "</td>
-                                                <td>" . $row["tele_no"] . "</td>
-                                                <td>" . $row["address"] . "</td>
+                                                <td>" . $row[0] . "</td>
+                                                <td>" . $row[1] . "</td>
+                                                <td>" . $row[2] . "</td>
+                                                <td>" . $row[3] . "</td>
                                            </form>
                                         </tr>");
                                     }

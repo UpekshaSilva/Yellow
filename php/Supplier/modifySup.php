@@ -1,6 +1,8 @@
 <?php
 require_once '../connection.php';
 
+session_start();
+
   $search=$_POST['search'];
   
   $sql="SELECT sup_no,name,address,tele_no FROM supplier WHERE sup_no='$search' OR name='$search' OR address='$search' OR tele_no='$search' ; ";
@@ -29,7 +31,7 @@ require_once '../connection.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>Employee | Yellow Enterprise</title>
+    <title>Supplier | Yellow Enterprise</title>
 
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -60,7 +62,7 @@ require_once '../connection.php';
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Yellow Enterprise</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Yellow Enterprise!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -84,34 +86,28 @@ require_once '../connection.php';
               <div class="menu_section">
                 <h3>Admin</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> Home</a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Stock <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i>Stock<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../Item/itemDetails.php">Add Item</a></li>
+                      <li><a href="../Item/addItem.php">Add New Item</a></li>
                       <li><a href="../Item/addItem.php">Item Details</a></li>
-                      <li><a href="../Item/removeItem.php">Remove Item</a></li>
+                      <li><a href="../Item/removeItem.php">Manage Stock</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Suppliers <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="../Suppliers/supplierDetails.php">Supplier Details</a></li>
-                      <li><a href="../Suppliers/addSupplier.php">Add Supplier</a></li>
-                      <li><a href="../Suppliers/removeSupplier.php">Remove Supplier</a></li>
-                    </ul>
+                  <li><a href="../Supplier/supplier.php"><i class="fa fa-home"></i>Manage Suppliers</a>
                   </li>
                   <li><a><i class="fa fa-edit"></i>Admin Accouts <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../Admin/adminDetails.php">Admin Details</a></li>
-                      <li><a href="../Admin/addAdmin.php">Add Admin</a></li>
-                      <li><a href="../Admin/removeAdmin.php">Remove Admin</a></li>
+                      <li><a href="../Admin/addUser.php">Add Admin</a></li>
+                      <li><a href="../Admin/userDetails.php">Manage Admin</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Employees<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i>Employee <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="empDetails.php">Employee Details</a></li>
-                      <li><a href="addEmployee.php">Add Employee</a></li>
-                      <li><a href="removeEmp.php">Remove Employee</a></li>
+                      <li><a href="../Employee/addEmp.php">Add Employee</a></li>
+                      <li><a href="../Employee/empDetails.php">Manage Admin</a></li>
+                      
                     </ul>
                   </li>
                 </ul>
@@ -124,12 +120,6 @@ require_once '../connection.php';
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>

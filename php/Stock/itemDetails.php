@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DataTables | Gentellela</title>
+    <title>Item | Yellow Enterprise</title>
 
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +37,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Yellow Enterprise!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -54,38 +57,32 @@
             <br />
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Admin</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> Home</a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Stock <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i>Stock<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="addAdmin.php">Add Item</a></li>
-                      <li><a href="adminDetails.php">Item Details</a></li>
-                      <li><a href="adminDetails.php">Remove Item</a></li>
+                      <li><a href="../Item/addItem.php">Add New Item</a></li>
+                      <li><a href="../Item/addItem.php">Item Details</a></li>
+                      <li><a href="../Item/removeItem.php">Manage Stock</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Suppliers<span class="fa fa-chevron-down"></span></a>
-                     <ul class="nav child_menu">
-                      <li><a href="addEmp.php">Add Supplier</a></li>
-                      <li><a href="empDetails.php">Suppliers Details</a></li>
-                      <li><a href="adminDetails.php">Remove Supplier</a></li>
+                  <li><a href="../Supplier/supplier.php"><i class="fa fa-home"></i>Manage Suppliers</a>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>Admin Accouts <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Admin/addUser.php">Add Admin</a></li>
+                      <li><a href="../Admin/userDetails.php">Manage Admin</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage User Accounts<span class="fa fa-chevron-down"></span></a>
-                     <ul class="nav child_menu">
-                      <li><a href="addEmp.php">Add User</a></li>
-                      <li><a href="empDetails.php">User Details</a></li>
-                      <li><a href="adminDetails.php">Remove User</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Employee<span class="fa fa-chevron-down"></span></a>
-                     <ul class="nav child_menu">
-                      <li><a href="addEmp.php">Add Employee</a></li>
-                      <li><a href="empDetails.php">Employee Details</a></li>
-                      <li><a href="adminDetails.php">Remove Employee</a></li>
+                  <li><a><i class="fa fa-edit"></i>Employee <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Employee/addEmp.php">Add Employee</a></li>
+                      <li><a href="../Employee/empDetails.php">Manage Admin</a></li>
+                      
                     </ul>
                   </li>
                 </ul>
@@ -98,12 +95,6 @@
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
@@ -216,7 +207,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            All Right recived by Yellow Enterprise 
           </div>
           <div class="clearfix"></div>
         </footer>

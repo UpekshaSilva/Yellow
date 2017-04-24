@@ -1,6 +1,7 @@
 <?php
 require_once '../connection.php';
 
+
   $empNo=$_POST['empNo'];
   $name = $_POST['name'];
   $tele_no = $_POST['nic'];

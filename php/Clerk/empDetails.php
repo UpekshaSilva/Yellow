@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DataTables | Gentellela</title>
+    <title>Employee | Yellow Enterprise</title>
 
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +37,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Yellow Enterprise!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -60,9 +63,9 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>View Stock <span class="fa fa-chevron-down"></span></a></li>
-                  <li><a><i class="fa fa-edit"></i>View Employees<span class="fa fa-chevron-down"></span></a></li>
-                  <li><a><i class="fa fa-edit"></i>View Suppliers<span class="fa fa-chevron-down"></span></a></li>
+                  <li><a href="viewStock.php"><i class="fa fa-edit"></i>View Stock</a></li>
+                  <li><a href="empDetails.php"><i class="fa fa-edit"></i>View Employees</a></li>
+                  <li><a href="supDetails.php"><i class="fa fa-edit"></i>View Suppliers</a></li>
                 </ul>
               </div>
 
@@ -124,11 +127,11 @@
                 <h3>Employee Details</h3>
               </div>
 
-              <form action="modifyEmp.php" method="POST" class="form-horizontal form-label-left" novalidate>
+              <form action="searchEmp.php" method="POST" class="form-horizontal form-label-left" novalidate>
                   <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                       <div class="input-group">
-                        <input id="empNo" name="empNo" type="text" class="form-control" placeholder="Emp No">
+                        <input id="search" name="search" type="text" class="form-control" placeholder="dfgdh">
                         <span class="input-group-btn">
                           <button id="search" name="search" type="submit" class="btn btn-default" value="search">Search</button>
                         </span>
@@ -189,7 +192,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            All Right recived by Yellow Enterprise
           </div>
           <div class="clearfix"></div>
         </footer>

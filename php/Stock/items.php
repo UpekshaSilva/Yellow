@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,7 +41,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Yellow Enterprise</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Yellow Enterprise!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -64,23 +67,27 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home</a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Stock <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i>Stock<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../Item/itemDetails.php">Add Item</a></li>
+                      <li><a href="../Item/addItem.php">Add New Item</a></li>
                       <li><a href="../Item/addItem.php">Item Details</a></li>
-                      <li><a href="../Item/removeItem.php">Remove Item</a></li>
+                      <li><a href="../Item/removeItem.php">Manage Stock</a></li>
                     </ul>
                   </li>
                   <li><a href="../Supplier/supplier.php"><i class="fa fa-home"></i>Manage Suppliers</a>
                   </li>
                   <li><a><i class="fa fa-edit"></i>Admin Accouts <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="../Admin/adminDetails.php">Admin Details</a></li>
-                      <li><a href="../Admin/addAdmin.php">Add Admin</a></li>
-                      <li><a href="../Admin/removeAdmin.php">Remove Admin</a></li>
+                      <li><a href="../Admin/addUser.php">Add Admin</a></li>
+                      <li><a href="../Admin/userDetails.php">Manage Admin</a></li>
                     </ul>
                   </li>
-                  <li><a href="emp.php"><i class="fa fa-edit"></i>Manage Employees</a>
+                  <li><a><i class="fa fa-edit"></i>Employee <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Employee/addEmp.php">Add Employee</a></li>
+                      <li><a href="../Employee/empDetails.php">Manage Admin</a></li>
+                      
+                    </ul>
                   </li>
                 </ul>
               </div>
@@ -92,12 +99,6 @@
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
@@ -169,7 +170,25 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supname">Supplier name<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="supname" name="supname" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  required="required" type="text">
+                            <?php
+                              require_once '../connection.php';
+
+                                  $result = $conn->query("select name from suppliers");
+                                  
+                                 
+                                  echo "<select name='supname'  id='supname' class='form-control' required>";
+
+                                  while ($row = $result->fetch_assoc()) {
+
+                                                unset($id, $name);
+                                                $name = $row['name']; 
+                                                echo '<option value="'.$name.'">'.$name.'</option>';
+                                               
+                              }
+
+                                  echo "</select>";
+                              ?>
+                          
                         </div>
                       </div>
                       <div class="item form-group">
@@ -208,7 +227,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_content" id="ajaxreq">
-                    <h2>Employee Details</h2>
+                    <h2>Stock Details</h2>
                     <?php
                         require_once '../connection.php';
                            //display reservations details in a table//

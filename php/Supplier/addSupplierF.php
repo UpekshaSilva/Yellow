@@ -1,6 +1,7 @@
 <?php
 require_once '../connection.php';
 
+
   $boolean = TRUE;
  $nameErr = $emailErr = $contactErr =  "";
 

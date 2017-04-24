@@ -1,52 +1,39 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+require_once 'connection.php';
 
 session_start();
 
-// establishing the MySQLi connection
+$message="";
+
+if(count($_POST)>0) {
+
+  $select = "SELECT * FROM users WHERE username='" . $_POST["username"] . "' and password = '". $_POST["password"]."'";
+
+  $result = mysqli_query($conn, $select);
 
 
-require_once 'connection.php';
+  $row  = mysqli_fetch_assoc($result);
 
+  if(is_array($row)) {
 
-// checking the user
+    $_SESSION["userID"] = $row['userID'];
+    $_SESSION["username"] = $row['username'];
+  } else {
+    $message = "Invalid Username or Password!";
+  }
+}
+  if(isset($_SESSION["userID"])) {
 
-if (isset($_POST['login'])) {
+    if($row['type']=='Admin'){
 
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
+      header("Location:Stock/items.php");
 
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    }else if($row['type']=='Clerk'){
 
-    $query="SELECT * FROM users WHERE username='$username' AND password='$password'";
-    $result=mysql_query($query);
-    $count=mysql_num_rows($result);
-    $row=mysql_fetch_array($result);
-    if (isset($_POST['login'])){
-      if ($count==1){
-        session_start();
-        $session("username");
-        $session("password") ;
-
-        if ($row['type']=='admin'){
-          header("location:index.php");
-          //echo ("you logged in as admin");
-        }
-        elseif ($row['type']=='clerk') {
-          header("location:Employee/emp.php");
-          //echo ("you logged in as cashier");
-        }
-      }
-      else {
-
-        echo "<script>alert('Email or password is not correct, try again!')</script>";
-        echo "<script>window.open('index.php#login','_self')</script>";
-      }
+      header("Location:Stock/itemDetails.php"); 
+         
     }
+  
 }
 ?>

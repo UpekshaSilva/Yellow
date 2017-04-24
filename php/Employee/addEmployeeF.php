@@ -47,10 +47,10 @@ if(isset($_POST["phone"])){$phone = test_input($_POST["phone"]);}
 
   if ($result){
         echo "<script type='text/javascript'>alert('successfully Added!')</script>";
-        header("location:emp.php");
+        header("location:empDetails.php");
     }else{
         echo "<script type='text/javascript'>alert('failed!')</script>";
-        header("location:emp.php");
+        header("location:empDetails.php");
     }
 ?>
 

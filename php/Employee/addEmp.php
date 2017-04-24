@@ -28,7 +28,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>User | Yellow Enterprise</title>
+  <title>Employee | Yellow Enterprise</title>
 
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -91,7 +91,7 @@
               </div>
               <div class="profile_info">
                <span>Welcome,</span>
-                <h2><?php echo $_SESSION["username"]; ?></h2>
+                <h2>upeksha</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -192,45 +192,40 @@
                   </div>
                   <div class="x_content">
 
-                    <form onsubmit="return confirm('Do you really want to add this Admin?');" action="adduserF.php" method="POST" class="form-horizontal form-label-left" novalidate>
-                      <span class="section">Personal Info</span>
+                    <form onsubmit="return confirm('Do you really want to add this Employee?');" action="addEmployeeF.php" method="POST" class="form-horizontal form-label-left" novalidate>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="uid">User ID <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="empNo">Emp No <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="uid" class="form-control col-md-7 col-xs-12" name="uid" required="required" readonly="readonly" type="text" <?php echo "value='".$row_cnt."'>";?>
+                          <input id="empNo" class="form-control col-md-7 col-xs-12" name="empNo" required="required" placeholder="Eg:- E001" type="text">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Userame <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Full Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="username" name="username" class="form-control col-md-7 col-xs-12" required="required" type="text">
+                          <input id="name" name="name" class="form-control col-md-7 col-xs-12" required="required" type="text">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Password <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Telephone <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="password" name="password" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  required="required"type="password">
+                          <input id="phone" name="phone" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  required="required" type="text">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rpassword">Re-Enter Password <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Address <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="rpassword" name="rpassword" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  required="required" type="password" onkeyup="checkPass(); return false;">
-                          <span id="confirmMessage" class="confirmMessage"></span>
+                          <input id="address" name="address" class="form-control col-md-7 col-xs-12" data-validate-length-range="10,100"  required="required" type="textArea">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">User Type<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">NIC <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select name="type" class="form-control" id="type" required>
-                            <option value="Admin" >Admin</option>
-                            <option value="Clerk">Clerk</option>
-                          </select>
+                          <input id="nic" name="nic" class="form-control col-md-7 col-xs-12" data-validate-length-range="10"  required="required" type="text">
                         </div>
                       </div>
                       <div class="ln_solid"></div>

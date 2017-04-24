@@ -1,6 +1,7 @@
 <?php
 require_once '../connection.php';
 
+
   $empNo=$_POST['id'];
 
   $sql="DELETE  FROM employee WHERE emp_no='$empNo'";

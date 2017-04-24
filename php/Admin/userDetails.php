@@ -1,3 +1,24 @@
+<?php
+   
+   include_once '../connection.php';
+
+  session_start();
+
+   
+    $row_cnt=0;
+    if ($result = mysqli_query($conn, "SELECT userID FROM users ORDER BY userID")) {
+
+    /* determine number of rows result set */
+    $row_cnt = mysqli_num_rows($result);
+
+    /* close result set */
+    mysqli_free_result($result);
+    }
+    $row_cnt=$row_cnt+1
+
+
+
+   ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +28,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DataTables | Gentellela</title>
+  <title>User | Yellow Enterprise</title>
 
     <!-- Bootstrap -->
     <link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,17 +36,41 @@
     <link href="../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="../../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="../../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="../../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="../../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="../../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="../../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
+    
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript"><!--
+        function checkPass()
+        {
+            //Store the password field objects into variables ...
+            var pass1 = document.getElementById('password');
+            var pass2 = document.getElementById('rpassword');
+            //Store the Confimation Message Object ...
+            var message = document.getElementById('confirmMessage');
+            //Set the colors we will be using ...
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+            //Compare the values in the password field 
+            //and the confirmation field
+            if(pass1.value == pass2.value){
+                //The passwords match. 
+                //Set the color to the good color and inform
+                //the user that they have entered the correct password 
+                pass2.style.backgroundColor = goodColor;
+                message.style.color = goodColor;
+                message.innerHTML = "Passwords Match!"
+            }else{
+                //The passwords do not match.
+                //Set the color to the bad color and
+                //notify the user.
+                pass2.style.backgroundColor = badColor;
+                message.style.color = badColor;
+                message.innerHTML = "Passwords Do Not Match!"
+            }
+        }  
+    //--></script>
   </head>
 
   <body class="nav-md">
@@ -34,7 +79,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-shopping-cart"></i> <span>Yellow Enterprise!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -45,8 +90,8 @@
                 <img src="images/user.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>Upeksha</h2>
+               <span>Welcome,</span>
+                <h2><?php echo $_SESSION["username"]; ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -58,34 +103,28 @@
               <div class="menu_section">
                 <h3>Admin</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> Home</a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Stock <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i>Stock<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="addAdmin.php">Add Item</a></li>
-                      <li><a href="adminDetails.php">Item Details</a></li>
-                      <li><a href="adminDetails.php">Remove Item</a></li>
+                      <li><a href="../Item/addItem.php">Add New Item</a></li>
+                      <li><a href="../Item/addItem.php">Item Details</a></li>
+                      <li><a href="../Item/removeItem.php">Manage Stock</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Suppliers<span class="fa fa-chevron-down"></span></a>
-                     <ul class="nav child_menu">
-                      <li><a href="addEmp.php">Add Supplier</a></li>
-                      <li><a href="empDetails.php">Suppliers Details</a></li>
-                      <li><a href="adminDetails.php">Remove Supplier</a></li>
+                  <li><a href="../Supplier/supplier.php"><i class="fa fa-home"></i>Manage Suppliers</a>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i>Admin Accouts <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Admin/addUser.php">Add Admin</a></li>
+                      <li><a href="../Admin/userDetails.php">Manage Admin</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i>Manage User Accounts<span class="fa fa-chevron-down"></span></a>
-                     <ul class="nav child_menu">
-                      <li><a href="addEmp.php">Add User</a></li>
-                      <li><a href="empDetails.php">User Details</a></li>
-                      <li><a href="adminDetails.php">Remove User</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i>Manage Employee<span class="fa fa-chevron-down"></span></a>
-                     <ul class="nav child_menu">
-                      <li><a href="addEmp.php">Add Employee</a></li>
-                      <li><a href="empDetails.php">Employee Details</a></li>
-                      <li><a href="adminDetails.php">Remove Employee</a></li>
+                  <li><a><i class="fa fa-edit"></i>Employee <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Employee/addEmp.php">Add Employee</a></li>
+                      <li><a href="../Employee/empDetails.php">Manage Admin</a></li>
+                      
                     </ul>
                   </li>
                 </ul>
@@ -98,12 +137,6 @@
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
@@ -123,7 +156,7 @@
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="javascript:;"> Profile</a></li>
                     <li>
                       <a href="javascript:;">
@@ -146,29 +179,19 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Employee Details</h3>
+                <h3>User Details</h3>
               </div>
-
-              <form action="modifyEmp.php" method="POST" class="form-horizontal form-label-left" novalidate>
-                  <div class="title_right">
-                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                      <div class="input-group">
-                        <input id="empNo" name="empNo" type="text" class="form-control" placeholder="Emp No">
-                        <span class="input-group-btn">
-                          <button id="search" name="search" type="submit" class="btn btn-default" value="search">Search</button>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-              </form>
             </div>
-
             <div class="clearfix"></div>
 
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
+                  <div class="x_title">
+                    <div class="clearfix"></div>
+                  </div>
                   <div class="x_content">
+
                     <?php
                         require_once '../connection.php';
                            //display reservations details in a table//
@@ -204,17 +227,18 @@
                         }
                         mysqli_close($conn);
                         ?>
-                    
                   </div>
                 </div>
               </div>
-
+            </div>
+          </div>
+        </div>
         <!-- /page content -->
 
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            All Right recived by Yellow Enterprise
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -230,69 +254,43 @@
     <script src="../../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../../vendors/nprogress/nprogress.js"></script>
-    <!-- iCheck -->
-    <script src="../../vendors/iCheck/icheck.min.js"></script>
+    <!-- validator -->
+    <script src="../../vendors/validator/validator.js"></script>
+
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="../../build/js/custom.min.js"></script>
 
-  </body>
-</html>
+    <!-- validator -->
+    <script>
+      // initialize the validator function
+      validator.message.date = 'not a real date';
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('a.deleteuser').click(function(e){
-      e.preventDefault();
-    })
+      // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+      $('form')
+        .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+        .on('change', 'select.required', validator.checkField)
+        .on('keypress', 'input[required][pattern]', validator.keypress);
 
+      $('.multi.required').on('keyup blur', 'input', function() {
+        validator.checkField.apply($(this).siblings().last()[0]);
+      });
 
-    $('a.deleteuser').click(function(){
-     var userid = this.id;
+      $('form').submit(function(e) {
+        e.preventDefault();
+        var submit = true;
 
-     swal({
-      title: 'Confirm deletion of Employee?',
-      text: "Employee will be deleted permanently!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      confirmButtonClass: 'btn btn-success',
-      cancelButtonClass: 'btn btn-danger',
-      buttonsStyling: false
-}).then(function () {
-
-       $.ajax({
-        type:"get",
-        url:"removeEmpf.php?id="+userid,
-        success:function(data){
-
-           swal(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success'
-            )
-
-           $('div#ajaxreq').html("");
-           $('div#ajaxreq').html(data);
-          
+        // evaluate the form using generic validaing
+        if (!validator.checkAll($(this))) {
+          submit = false;
         }
 
-      })
- 
-}, function (dismiss) {
- 
-  if (dismiss === 'cancel') {
-    swal(
-      'Cancelled',
-      'Action denied',
-      'error'
-    )
-  }
-})
-    })
-  })
+        if (submit)
+          this.submit();
 
-
-</script>
-
+        return false;
+      });
+    </script>
+    <!-- /validator -->
+   
+  </body>
+</html>
